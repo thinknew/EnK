@@ -1,3 +1,11 @@
+
+'''
+EnK Layer
+© Avinash K Singh 
+https://github.com/thinknew/enk
+Licensed under MIT License
+'''
+
 from tensorflow.keras import utils as np_utils
 from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger,EarlyStopping
@@ -32,7 +40,7 @@ def getClassInfo(numOfClasses):
 
 def getInputDataInfo(index):
 
-    # CC , pHRC, WL, MI, P300, MCR, ECG, HRV
+    # CC , pHRC, MCR, ECG, HRV
     # Add data related information as required
     LoadMatFileName = ['dataForML_epoch_200ms_1s_without_filter.mat', 'dataForML.mat', 'dataForML.mat', 'dataForML.mat']
 
@@ -52,33 +60,6 @@ def getInputDataInfo(index):
     return LoadMatFileName[index],Path[index],dataVar[index],\
            labelVar[index],SaveMatFileName[index],BS[index],samplingRate[index],numOfClasses[index]
 
-# def getInputDataInfo(index):
-#
-#     # CC , pHRC, WL, MI, P300, MCR, ECG, HRV
-#     # Add data related information as required
-#     LoadMatFileName = ['dataForML_epoch_200ms_1s_without_filter.mat', 'dataForML.mat', 'binary_data.mat',
-#                        'dataForML_S1.mat', 'dataForML.mat', 'dataForML.mat', 'dataForML.mat', 'dataForML.mat']
-#
-#     Path = ['/data/avisingh/Desktop/VR_data_2018/Machine_Learning_Script/',
-#             '/data/avisingh/Desktop/CAS/',
-#             '/data/avisingh/Desktop/Workload_Thongs/Set_Data/Epoch_Cleaned/',
-#             '/data/avisingh/Desktop/OpenDataSets/BCICIV_2a_gdf/',
-#             '/data/avisingh/Desktop/OpenDataSets/BCICom3_Dataset2/',
-#             '/data/avisingh/Desktop/OpenDataSets/BCICII_4/',
-#             '/data/avisingh/Desktop/OpenDataSets/UCRArchive_2018/ECG5000/',
-#             '/data/avisingh/Desktop/OpenDataSets/StressDataSaraHRV/']
-#
-#     dataVar = ['CC', 'CC', 'binary_data', 'CC', 'CC', 'x_train', 'Data', 'Data']
-#     labelVar = ['Label_two_class', 'Labels', 'Label_two_class', 'Label_four_class', 'Label', 'y_train', 'Labels',
-#                 'Labels']
-#     SaveMatFileName = ['CC', 'pHRC', 'WL', 'MI','P300', 'MCR', 'ECG', 'HRV']
-#
-#     samplingRate = [1000, 1000, 250, 250, 240, 1000, 70, 400]
-#     BS = [16, 16, 16, 16, 8, 4, 10, 4]
-#     numOfClasses = [2, 2, 2, 4, 2, 4, 5, 4]
-#
-#     return LoadMatFileName[index],Path[index],dataVar[index],\
-#            labelVar[index],SaveMatFileName[index],BS[index],samplingRate[index],numOfClasses[index]
 
 def getPerformanceMetricsDL(numOfClasses, pos_label,f1_avg ,Y_test, predicted):
 
@@ -113,7 +94,7 @@ def oneHot(input, numOfClasses,ravelBool):
 
     return output
 
-# Divide data into 50/25/25 for train, val, and test
+
 def getTrainTestVal(X,Y,testSize=0.3):
 
     train_test_data = StratifiedShuffleSplit(n_splits=1, test_size=testSize, random_state=0)
@@ -136,13 +117,7 @@ def checkpointCallbacks(SaveMatFileName, patience, min_delta):
 
     checkpoint = [
         EarlyStopping(monitor='loss', patience=patience, min_delta=min_delta, mode="auto", restore_best_weights=True, verbose=1),
-        # EarlyStoppingByLossVal(monitor='val_loss', value=0.01, verbose=1),
         ModelCheckpoint(filepath=SaveMatFileName+'.ckpt', monitor='loss', mode="auto", save_weights_only=True, verbose=1),
-        # EarlyStopping(monitor='val_loss', patience=patience, min_delta=min_delta, mode="auto",
-        #               restore_best_weights=True, verbose=1),
-        # # EarlyStoppingByLossVal(monitor='val_loss', value=0.01, verbose=1),
-        # ModelCheckpoint(filepath=SaveMatFileName + '.ckpt', monitor='val_loss', mode="auto", save_weights_only=True,
-        #                 verbose=1),
         CSVLogger(SaveMatFileName + '.csv', append=True),
         ]
     return checkpoint

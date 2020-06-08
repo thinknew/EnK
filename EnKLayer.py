@@ -1,3 +1,11 @@
+
+'''
+EnK Layer
+© Avinash K Singh 
+https://github.com/thinknew/enk
+Licensed under MIT License
+'''
+
 from tensorflow.keras import backend as K
 from tensorflow.keras.layers import Layer
 import tensorflow.compat.v1 as tf

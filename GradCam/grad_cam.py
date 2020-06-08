@@ -1,3 +1,16 @@
+
+
+'''
+EnK Layer
+© Avinash K Singh 
+https://github.com/thinknew/enk
+Licensed under MIT License
+'''
+
+
+### Code taken from: https://github.com/jacobgil/keras-grad-cam
+
+
 from tensorflow.keras.applications.vgg16 import (
     VGG16, preprocess_input, decode_predictions)
 from tensorflow.keras.models import Model
@@ -143,25 +156,3 @@ def grad_cam(input_model, image, category_index, layer_name,nb_classes):
     # cam = 255 * cam / np.max(cam)
     return np.uint8(cam), heatmap
 
-
-# Testing exmaple
-# preprocessed_input = load_image(sys.argv[1])
-
-# model = VGG16(weights='imagenet')
-#
-# predictions = model.predict(preprocessed_input)
-# print(predictions.shape)
-# top_1 = decode_predictions(predictions)[0][0]
-# print('Predicted class:')
-# print('%s (%s) with probability %.2f' % (top_1[1], top_1[0], top_1[2]))
-#
-# predicted_class = np.argmax(predictions)
-# cam, heatmap = grad_cam(model, preprocessed_input, predicted_class, "block5_conv3")
-# cv2.imwrite("gradcam.jpg", cam)
-#
-# register_gradient()
-# guided_model = modify_backprop(model, 'GuidedBackProp')
-# saliency_fn = compile_saliency_function(guided_model)
-# saliency = saliency_fn([preprocessed_input, 0])
-# gradcam = saliency[0] * heatmap[..., np.newaxis]
-# cv2.imwrite("guided_gradcam.jpg", deprocess_image(gradcam))

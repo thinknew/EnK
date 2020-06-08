@@ -1,3 +1,12 @@
+
+'''
+EnK Layer
+© Avinash K Singh 
+https://github.com/thinknew/enk
+Licensed under MIT License
+'''
+
+
 import scipy.io as sio
 import tensorflow.compat.v1 as tf
 from otherClassifier import *
