@@ -9,6 +9,16 @@
 - scikit-learn >= 0.20.1
 - matplotlib >= 2.2.3
 
+# How to run
+
+- Input Data Format: Number of EEG Channels x Number of Samples X Number of Trials for EEG data and Labels as a vector. See [testData.mat](https://github.com/thinknew/BCINet/tree/main/testdata) for references with sampling rate of 400 Hz.
+- Provide input data related information in 'op.py' such as path, sampling rate, number of classes, etc.
+- Execute the following line of code
+
+```
+python main.py
+```
+
 # Models implemented/used
 - EEGNet [[1]](http://stacks.iop.org/1741-2552/15/i=5/a=056013) 
 - DeepConvNet [[2]](https://onlinelibrary.wiley.com/doi/full/10.1002/hbm.23730)
